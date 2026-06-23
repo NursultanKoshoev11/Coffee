@@ -6,6 +6,10 @@
 # Dependencies
 node_modules/
 
+# Runtime demo data
+bot/data/*.json
+!bot/data/.gitkeep
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
