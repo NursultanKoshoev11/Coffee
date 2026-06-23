@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="mobile.css">
+  <link rel="stylesheet" href="leaderboard.css">
 </head>
 <body>
   <div class="site-bg" aria-hidden="true"></div>
@@ -22,6 +23,7 @@
     <nav class="nav" aria-label="Main navigation">
       <a href="#branches">Филиалы</a>
       <a href="#menu">Меню</a>
+      <a href="#leaderboard">Лига</a>
       <a href="#bonus">Бонусы</a>
       <a href="#bot">Бот</a>
     </nav>
@@ -35,15 +37,16 @@
       <div class="hero-copy">
         <p class="eyebrow">coffee menu • telegram orders • loyalty</p>
         <h1>Цифровое меню, которое выглядит как часть бренда кофейни.</h1>
-        <p class="lead">Новая демо-версия: современная витрина, выбор филиала, аккуратная корзина, промокоды и Telegram-бот для быстрых заказов.</p>
+        <p class="lead">Новая демо-версия: современная витрина, выбор филиала, аккуратная корзина, промокоды, leaderboard и Telegram-бот для быстрых заказов.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#menu">Смотреть меню</a>
+          <a class="btn secondary" href="#leaderboard">Coffee League</a>
           <button class="btn secondary" id="heroOrder" type="button">Открыть заказ</button>
         </div>
         <div class="trust-row">
           <span>3 филиала</span>
           <span>9 demo-позиций</span>
-          <span>COSMO10</span>
+          <span>privacy-safe рейтинг</span>
         </div>
       </div>
 
@@ -60,7 +63,7 @@
         </div>
         <div class="mini-menu">
           <div><span>☕</span><b>Cappuccino</b><em>160 сом</em></div>
-          <div><span>🍵</span><b>Iced Matcha</b><em>220 сом</em></div>
+          <div><span>🏆</span><b>Coffee League</b><em>+1 за заказ</em></div>
           <div><span>🥐</span><b>Croissant</b><em>95 сом</em></div>
         </div>
         <div class="orbit-card reward-card">
@@ -90,15 +93,41 @@
       <div id="menuGrid" class="menu-grid"></div>
     </section>
 
+    <section id="leaderboard" class="shell leaderboard-section">
+      <div class="leaderboard-hero">
+        <div>
+          <p class="eyebrow">Coffee League</p>
+          <h2>Покупай кофе — поднимайся в рейтинге.</h2>
+          <p>Рейтинг показывает только безопасные публичные данные: имя/никнейм, аватар-заглушку, количество позиций и заказов. Username, телефон и Telegram ID здесь не отображаются.</p>
+        </div>
+        <div class="league-prize">
+          <span>Приз недели</span>
+          <b>Free coffee</b>
+          <small>для #1 в демо-лиге</small>
+        </div>
+      </div>
+      <div class="leaderboard-grid">
+        <div id="leaderboardPodium" class="podium-grid"></div>
+        <div class="leaderboard-panel">
+          <div class="leaderboard-panel-head">
+            <div><span>Top guests</span><b id="leaderboardTotal">0 участников</b></div>
+            <button id="resetLeaderboard" type="button">Сброс demo</button>
+          </div>
+          <div id="leaderboardList" class="leaderboard-list"></div>
+          <p class="privacy-note">Privacy-safe: сайт не показывает username, телефон или Telegram ID. Для реального запуска нужен backend, чтобы общий рейтинг был одинаковым у всех пользователей.</p>
+        </div>
+      </div>
+    </section>
+
     <section id="bonus" class="shell loyalty-section">
       <div class="loyalty-main">
         <p class="eyebrow">Loyalty</p>
-        <h2>Скидки и бонусы без сложной системы.</h2>
-        <p>Для MVP достаточно простого сценария: первый заказ со скидкой, бонусы за повторные покупки и отдельная акция для друзей из Instagram.</p>
+        <h2>Скидки, бонусы и соревнование без сложной системы.</h2>
+        <p>Для MVP достаточно простого сценария: первый заказ со скидкой, бонусы за повторные покупки и лидерборд, который мотивирует покупать чаще.</p>
       </div>
       <div class="promo-stack">
         <article class="promo-card"><span>COSMO10</span><b>−10%</b><small>на первый заказ</small></article>
-        <article class="promo-card"><span>FRIENDS15</span><b>−15%</b><small>если в заказе от 2 позиций</small></article>
+        <article class="promo-card"><span>Coffee League</span><b>+1</b><small>каждая позиция двигает гостя выше</small></article>
         <article class="promo-card"><span>7th cup</span><b>gift</b><small>каждый 7-й кофе бесплатно</small></article>
       </div>
     </section>
@@ -112,9 +141,9 @@
       <div class="phone-preview">
         <div class="phone-top"><span></span><b>Cosmo Bot</b><i>online</i></div>
         <div class="message bot-msg">Здравствуйте! Выберите действие:</div>
-        <div class="quick-grid"><span>☕ Меню</span><span>📍 Филиалы</span><span>🎁 Бонусы</span><span>🧾 Заказ</span></div>
+        <div class="quick-grid"><span>☕ Меню</span><span>🏆 Лига</span><span>🎁 Бонусы</span><span>🧾 Заказ</span></div>
         <div class="message user-msg">латте 2, круассан 1</div>
-        <div class="message bot-msg">Готово. Демо-заказ принят.</div>
+        <div class="message bot-msg">Готово. Вы теперь #3 в Coffee League.</div>
       </div>
     </section>
   </main>
@@ -128,17 +157,17 @@
       </div>
       <label class="field"><span>Филиал</span><select id="orderBranch"></select></label>
       <div id="cartItems" class="cart-items"></div>
-      <label class="field"><span>Имя гостя</span><input id="guestName" placeholder="Например, Нурсултан"></label>
+      <label class="field"><span>Имя для заказа и рейтинга</span><input id="guestName" placeholder="Например, Нурсултан"></label>
       <label class="field"><span>Промокод</span><input id="promoInput" placeholder="COSMO10"></label>
       <div class="total-card"><span>Итого</span><b id="cartTotal">0 сом</b></div>
-      <button id="copyOrder" class="btn primary full" type="button">Сформировать заказ</button>
+      <button id="copyOrder" class="btn primary full" type="button">Оформить demo-заказ</button>
       <pre id="status" class="order-output"></pre>
     </section>
   </aside>
 
   <footer class="footer shell">
     <span>Cosmo Social Coffee — MVP demo</span>
-    <span>menu • orders • loyalty • bot</span>
+    <span>menu • orders • loyalty • leaderboard • bot</span>
   </footer>
 
   <script src="app.js"></script>
