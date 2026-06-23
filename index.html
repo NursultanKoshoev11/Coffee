@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="leaderboard.css">
   <link rel="stylesheet" href="mobile.css">
+  <link rel="stylesheet" href="focus-overrides.css">
 </head>
 <body>
   <div class="site-bg" aria-hidden="true"></div>
@@ -40,96 +41,26 @@
           <button class="btn secondary" id="heroOrder" type="button">Собрать предзаказ</button>
           <a class="btn ghost" href="#bot">Loyalty bot</a>
         </div>
-        <div class="trust-row">
-          <span>dark minimal</span>
-          <span>pickup flow</span>
-          <span>privacy-safe league</span>
-        </div>
+        <div class="trust-row"><span>dark minimal</span><span>pickup flow</span><span>privacy-safe league</span></div>
       </div>
-
       <div class="hero-showcase" aria-label="Focus Coffee Bar preview">
         <div class="focus-card live-card"><small>preorder</small><b>Flat White</b><span>готовность ~ 7 мин</span></div>
-        <div class="focus-cup">
-          <div class="cup-ring"></div>
-          <div class="cup-core">focus</div>
-        </div>
-        <div class="mini-menu">
-          <div><span>01</span><b>Espresso tonic</b><em>190 сом</em></div>
-          <div><span>02</span><b>Batch brew</b><em>160 сом</em></div>
-          <div><span>03</span><b>Cardamom bun</b><em>120 сом</em></div>
-        </div>
+        <div class="focus-cup"><div class="cup-ring"></div><div class="cup-core">focus</div></div>
+        <div class="mini-menu"><div><span>01</span><b>Espresso tonic</b><em>190 сом</em></div><div><span>02</span><b>Batch brew</b><em>160 сом</em></div><div><span>03</span><b>Cardamom bun</b><em>120 сом</em></div></div>
         <div class="focus-card league-card"><small>loyalty</small><b>Coffee League</b><span>+1 за каждую позицию</span></div>
       </div>
     </section>
 
-    <section id="preorder" class="shell preorder-strip">
-      <div><p class="eyebrow">How it works</p><h2>Гость выбирает напиток до прихода.</h2></div>
-      <div class="steps">
-        <article><b>01</b><span>Выбор напитка</span></article>
-        <article><b>02</b><span>Время pickup</span></article>
-        <article><b>03</b><span>Заявка в Telegram</span></article>
-      </div>
-    </section>
+    <section id="preorder" class="shell preorder-strip"><div><p class="eyebrow">How it works</p><h2>Гость выбирает напиток до прихода.</h2></div><div class="steps"><article><b>01</b><span>Выбор напитка</span></article><article><b>02</b><span>Время pickup</span></article><article><b>03</b><span>Заявка в Telegram</span></article></div></section>
+    <section id="branches" class="shell section-block"><div class="section-head"><p class="eyebrow">Location</p><h2>Один Focus-бар сейчас, несколько точек — потом.</h2></div><div id="branchTabs" class="branch-grid"></div></section>
+    <section id="menu" class="shell section-block menu-section"><div class="section-head menu-head"><div><p class="eyebrow">Menu</p><h2>Короткое меню без шума</h2></div><div id="categoryTabs" class="category-tabs"></div></div><div id="menuGrid" class="menu-grid"></div></section>
 
-    <section id="branches" class="shell section-block">
-      <div class="section-head"><p class="eyebrow">Location</p><h2>Один Focus-бар сейчас, несколько точек — потом.</h2></div>
-      <div id="branchTabs" class="branch-grid"></div>
-    </section>
+    <section id="leaderboard" class="shell leaderboard-section"><div class="leaderboard-hero"><div><p class="eyebrow">Focus League</p><h2>Кто чаще берёт кофе — тот выше.</h2><p>Публично показываем только имя и аватар-заглушку. Username, телефон и Telegram ID не выводятся на сайт.</p></div><div class="league-prize"><span>reward</span><b>free cup</b><small>для #1 недели</small></div></div><div class="leaderboard-grid"><div id="leaderboardPodium" class="podium-grid"></div><div class="leaderboard-panel"><div class="leaderboard-panel-head"><div><span>Top guests</span><b id="leaderboardTotal">0 участников</b></div><button id="resetLeaderboard" type="button">Сброс demo</button></div><div id="leaderboardList" class="leaderboard-list"></div><p class="privacy-note">Privacy-safe: только имя/аватар и количество покупок. Для общего рейтинга после MVP нужен backend или синхронизация с Telegram-ботом.</p></div></div></section>
 
-    <section id="menu" class="shell section-block menu-section">
-      <div class="section-head menu-head">
-        <div><p class="eyebrow">Menu</p><h2>Короткое меню без шума</h2></div>
-        <div id="categoryTabs" class="category-tabs"></div>
-      </div>
-      <div id="menuGrid" class="menu-grid"></div>
-    </section>
-
-    <section id="leaderboard" class="shell leaderboard-section">
-      <div class="leaderboard-hero">
-        <div>
-          <p class="eyebrow">Focus League</p>
-          <h2>Кто чаще берёт кофе — тот выше.</h2>
-          <p>Публично показываем только имя и аватар-заглушку. Username, телефон и Telegram ID не выводятся на сайт.</p>
-        </div>
-        <div class="league-prize"><span>reward</span><b>free cup</b><small>для #1 недели</small></div>
-      </div>
-      <div class="leaderboard-grid">
-        <div id="leaderboardPodium" class="podium-grid"></div>
-        <div class="leaderboard-panel">
-          <div class="leaderboard-panel-head"><div><span>Top guests</span><b id="leaderboardTotal">0 участников</b></div><button id="resetLeaderboard" type="button">Сброс demo</button></div>
-          <div id="leaderboardList" class="leaderboard-list"></div>
-          <p class="privacy-note">Privacy-safe: только имя/аватар и количество покупок. Для общего рейтинга после MVP нужен backend или синхронизация с Telegram-ботом.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="bot" class="shell section-block bot-section">
-      <div class="section-head"><p class="eyebrow">Loyalty bot</p><h2>Бот не просто принимает заказ — возвращает гостя снова.</h2><p class="muted">Карточки напитков с фото, корзина, оформление заявки, бонусы и Focus League в Telegram.</p></div>
-      <div class="phone-preview">
-        <div class="phone-top"><span></span><b>Focus Bot</b><i>online</i></div>
-        <div class="message bot-msg">Choose your focus for today.</div>
-        <div class="quick-grid"><span>☕ Меню</span><span>🛒 Корзина</span><span>🏆 Лига</span><span>🎁 Bonus</span></div>
-        <div class="message user-msg">Flat white + croissant</div>
-        <div class="message bot-msg">Done. You are #3 in Focus League.</div>
-      </div>
-    </section>
+    <section id="bot" class="shell section-block bot-section"><div class="section-head"><p class="eyebrow">Loyalty bot</p><h2>Бот не просто принимает заказ — возвращает гостя снова.</h2><p class="muted">Карточки напитков с фото, корзина, оформление заявки, бонусы и Focus League в Telegram.</p></div><div class="phone-preview"><div class="phone-top"><span></span><b>Focus Bot</b><i>online</i></div><div class="message bot-msg">Choose your focus for today.</div><div class="quick-grid"><span>☕ Меню</span><span>🛒 Корзина</span><span>🏆 Лига</span><span>🎁 Bonus</span></div><div class="message user-msg">Flat white + croissant</div><div class="message bot-msg">Done. You are #3 in Focus League.</div></div></section>
   </main>
 
-  <aside id="cart" class="cart-drawer" aria-hidden="true">
-    <div class="cart-backdrop" id="cartBackdrop"></div>
-    <section class="cart-panel" aria-label="Корзина">
-      <div class="cart-head"><div><p class="eyebrow">Preorder</p><h2>Ваш Focus-заказ</h2></div><button class="close-btn" id="closeCart" type="button" aria-label="Закрыть корзину">×</button></div>
-      <label class="field"><span>Точка</span><select id="orderBranch"></select></label>
-      <div id="cartItems" class="cart-items"></div>
-      <label class="field"><span>Имя для заказа и рейтинга</span><input id="guestName" placeholder="Например, Нурсултан"></label>
-      <label class="field"><span>Pickup time</span><input id="pickupTime" placeholder="Например, 15:30"></label>
-      <label class="field"><span>Промокод</span><input id="promoInput" placeholder="FOCUS10"></label>
-      <div class="total-card"><span>Итого</span><b id="cartTotal">0 сом</b></div>
-      <button id="copyOrder" class="btn primary full" type="button">Оформить demo-предзаказ</button>
-      <pre id="status" class="order-output"></pre>
-    </section>
-  </aside>
-
+  <aside id="cart" class="cart-drawer" aria-hidden="true"><div class="cart-backdrop" id="cartBackdrop"></div><section class="cart-panel" aria-label="Корзина"><div class="cart-head"><div><p class="eyebrow">Preorder</p><h2>Ваш Focus-заказ</h2></div><button class="close-btn" id="closeCart" type="button" aria-label="Закрыть корзину">×</button></div><label class="field"><span>Точка</span><select id="orderBranch"></select></label><div id="cartItems" class="cart-items"></div><label class="field"><span>Имя для заказа и рейтинга</span><input id="guestName" placeholder="Например, Нурсултан"></label><label class="field"><span>Pickup time</span><input id="pickupTime" placeholder="Например, 15:30"></label><label class="field"><span>Промокод</span><input id="promoInput" placeholder="FOCUS10"></label><div class="total-card"><span>Итого</span><b id="cartTotal">0 сом</b></div><button id="copyOrder" class="btn primary full" type="button">Оформить demo-предзаказ</button><pre id="status" class="order-output"></pre></section></aside>
   <footer class="footer shell"><span>Focus Coffee Bar — MVP demo</span><span>menu • preorder • loyalty • leaderboard • bot</span></footer>
   <script src="app.js"></script>
 </body>
