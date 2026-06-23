@@ -15,11 +15,42 @@ const products=[
   {id:'tiramisu',cat:'food',icon:'🍫',name:'Coffee Tiramisu',desc:'coffee cream dessert for a premium combo',price:210,tone:'#8b5a3c'}
 ];
 const cats=[['all','Все'],['coffee','Кофе'],['special','Special'],['food','Десерты']];
+const leaderboardSeed=[
+  {id:'demo-1',name:'Айдана',avatar:'✨',cups:18,orders:7,totalSpent:3260},
+  {id:'demo-2',name:'Бекзат',avatar:'☕',cups:15,orders:6,totalSpent:2890},
+  {id:'demo-3',name:'Мира',avatar:'🌿',cups:12,orders:5,totalSpent:2310},
+  {id:'demo-4',name:'Элдар',avatar:'🥐',cups:8,orders:4,totalSpent:1510}
+];
 let activeBranch='center';let activeCat='all';let cart=JSON.parse(localStorage.getItem('cosmoCartV2')||'[]');
 const $=id=>document.getElementById(id);const som=n=>`${n} сом`;
 function save(){localStorage.setItem('cosmoCartV2',JSON.stringify(cart));renderCart();}
 function openCart(){const c=$('cart');c.classList.add('open');c.setAttribute('aria-hidden','false')}
 function closeCart(){const c=$('cart');c.classList.remove('open');c.setAttribute('aria-hidden','true')}
+function escapeHtml(value=''){return String(value).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function safePublicName(value=''){
+  const cleaned=String(value).replace(/@\w+/g,'').replace(/\+?\d[\d\s()\-]{5,}/g,'').replace(/\s+/g,' ').trim();
+  if(!cleaned||cleaned.length<2)return'Гость Cosmo';
+  return cleaned.slice(0,24);
+}
+function initials(name){const parts=name.split(' ').filter(Boolean);return parts.slice(0,2).map(p=>p[0]).join('').toUpperCase()||'C'}
+function leaderboard(){return JSON.parse(localStorage.getItem('cosmoLeaderboardV1')||JSON.stringify(leaderboardSeed))}
+function saveLeaderboard(data){localStorage.setItem('cosmoLeaderboardV1',JSON.stringify(data))}
+function sortLeaderboard(data){return [...data].sort((a,b)=>(b.cups||0)-(a.cups||0)||(b.orders||0)-(a.orders||0)||(b.totalSpent||0)-(a.totalSpent||0))}
+function medal(i){return['🥇','🥈','🥉'][i]||`${i+1}.`}
+function guestId(name){return `guest-${safePublicName(name).toLowerCase().replace(/[^а-яa-z0-9]+/gi,'-').replace(/^-|-$/g,'')||'cosmo'}`}
+function addLeaderboardScore(name,{cups,total}){
+  const publicName=safePublicName(name);const data=leaderboard();const id=guestId(publicName);let user=data.find(x=>x.id===id);
+  if(!user){user={id,name:publicName,avatar:initials(publicName),cups:0,orders:0,totalSpent:0};data.push(user)}
+  user.name=publicName;user.avatar=user.avatar||initials(publicName);user.cups+=cups;user.orders+=1;user.totalSpent+=total;user.lastOrderAt=new Date().toISOString();saveLeaderboard(data);
+  return sortLeaderboard(data).findIndex(x=>x.id===id)+1;
+}
+function renderLeaderboard(){
+  const podium=$('leaderboardPodium'),list=$('leaderboardList'),total=$('leaderboardTotal');if(!podium||!list)return;
+  const data=sortLeaderboard(leaderboard());total.textContent=`${data.length} участников`;
+  const top=data.slice(0,3);podium.innerHTML=top.map((u,i)=>`<article class="podium-card rank-${i+1}"><div class="rank-medal">${medal(i)}</div><div class="league-avatar">${escapeHtml(u.avatar||initials(u.name))}</div><b>${escapeHtml(u.name)}</b><span>${u.cups||0} позиций · ${u.orders||0} заказов</span><em>${som(u.totalSpent||0)}</em></article>`).join('');
+  list.innerHTML=data.slice(0,8).map((u,i)=>`<div class="leader-row"><div class="leader-place">${medal(i)}</div><div class="league-avatar small">${escapeHtml(u.avatar||initials(u.name))}</div><div class="leader-name"><b>${escapeHtml(u.name)}</b><span>без username · privacy-safe</span></div><div class="leader-score"><b>${u.cups||0}</b><span>позиций</span></div></div>`).join('');
+}
+function resetLeaderboard(){saveLeaderboard(leaderboardSeed);renderLeaderboard();$('status').textContent='Demo-лидерборд сброшен до стартовых данных.'}
 function renderBranches(){
   const root=$('branchTabs');root.innerHTML='';
   branches.forEach(b=>{const card=document.createElement('button');card.className='branch-card'+(b.id===activeBranch?' active':'');card.innerHTML=`<small>Открыто</small><b>${b.name}</b><span>${b.time}</span><span>${b.address}</span>`;card.onclick=()=>{activeBranch=b.id;renderBranches()};root.appendChild(card)});
@@ -40,6 +71,12 @@ function renderCart(){
   cart.forEach(line=>{const p=products.find(x=>x.id===line.id);const row=document.createElement('div');row.className='cartItem';row.innerHTML=`<div><b>${p.icon} ${p.name}</b><small>${som(p.price)} × ${line.qty}</small></div><div class="qty"><button data-minus="${line.id}">−</button><span>${line.qty}</span><button data-plus="${line.id}">+</button></div>`;root.appendChild(row)});
   document.querySelectorAll('[data-minus]').forEach(b=>b.onclick=()=>changeQty(b.dataset.minus,-1));document.querySelectorAll('[data-plus]').forEach(b=>b.onclick=()=>changeQty(b.dataset.plus,1));const t=totals();$('cartTotal').textContent=t.discount?`${som(t.total)} · скидка ${som(t.discount)}`:som(t.total)
 }
-function makeOrderText(){const b=branches.find(x=>x.id===activeBranch);const name=$('guestName').value.trim()||'Гость';const lines=cart.map(line=>{const p=products.find(x=>x.id===line.id);return `• ${p.name} × ${line.qty}`}).join('\n');const t=totals();return `Cosmo Social Coffee demo\nФилиал: ${b.name}\nИмя: ${name}\n\nЗаказ:\n${lines}\n\nИтого: ${som(t.total)}${t.discount?`\nСкидка: ${som(t.discount)}`:''}`}
-async function copyOrder(){if(!cart.length){$('status').textContent='Сначала добавьте товар в корзину.';return}const text=makeOrderText();$('status').textContent=text;try{await navigator.clipboard.writeText(text);$('status').textContent=text+'\n\nСкопировано. Можно отправить менеджеру или в Telegram.'}catch(e){}}
-$('openCart').onclick=openCart;$('heroOrder').onclick=openCart;$('closeCart').onclick=closeCart;$('cartBackdrop').onclick=closeCart;$('promoInput').oninput=renderCart;$('copyOrder').onclick=copyOrder;renderBranches();renderCats();renderMenu();renderCart();
+function makeOrderText(){const b=branches.find(x=>x.id===activeBranch);const name=safePublicName($('guestName').value);const lines=cart.map(line=>{const p=products.find(x=>x.id===line.id);return `• ${p.name} × ${line.qty}`}).join('\n');const t=totals();return `Cosmo Social Coffee demo\nФилиал: ${b.name}\nИмя: ${name}\n\nЗаказ:\n${lines}\n\nИтого: ${som(t.total)}${t.discount?`\nСкидка: ${som(t.discount)}`:''}`}
+async function copyOrder(){
+  if(!cart.length){$('status').textContent='Сначала добавьте товар в корзину.';return}
+  const t=totals();const name=safePublicName($('guestName').value);const text=makeOrderText();const rank=addLeaderboardScore(name,{cups:t.qty,total:t.total});renderLeaderboard();
+  $('status').textContent=`${text}\n\n🏆 ${name} теперь на месте #${rank} в Coffee League.\nПублично показываем только имя и аватар, без username/телефона.`;
+  try{await navigator.clipboard.writeText(text)}catch(e){}
+  cart=[];save();setTimeout(()=>document.querySelector('#leaderboard')?.scrollIntoView({behavior:'smooth'}),250);
+}
+$('openCart').onclick=openCart;$('heroOrder').onclick=openCart;$('closeCart').onclick=closeCart;$('cartBackdrop').onclick=closeCart;$('promoInput').oninput=renderCart;$('copyOrder').onclick=copyOrder;$('resetLeaderboard').onclick=resetLeaderboard;renderBranches();renderCats();renderMenu();renderCart();renderLeaderboard();
