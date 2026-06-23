@@ -1,2 +1,74 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Coffee Demo</title><link rel="stylesheet" href="styles.css"></head><body><h1>Cosmo Social Coffee Demo</h1><p>Меню, филиалы, бонусы и бот.</p><div id="app"></div><script src="app.js"></script></body></html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cosmo Social Coffee Demo</title>
+  <meta name="description" content="Demo MVP: menu, branches, loyalty and Telegram bot for a coffee shop.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="logo">C</span><span><b>Cosmo Social Coffee</b><br><small>demo MVP</small></span></a>
+    <nav><a href="#branches">Филиалы</a><a href="#menu">Меню</a><a href="#bonus">Бонусы</a><a href="#bot">Бот</a></nav>
+    <button id="openCart">Корзина <span id="cartCount">0</span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="kicker">menu + bot + loyalty</p>
+        <h1>Демо для кофейни: красивое меню, быстрый заказ и бонусы.</h1>
+        <p class="lead">Тестовая MVP-версия для показа клиенту. Реальные фото, цены и филиалы можно заменить после подтверждения.</p>
+        <a class="btn" href="#menu">Открыть меню</a>
+      </div>
+      <div class="coffee-card">
+        <div class="cup">✦</div>
+        <h2>Salted Caramel Latte</h2>
+        <p>190 сом</p>
+        <button data-add="latte">Добавить</button>
+      </div>
+    </section>
+
+    <section id="branches" class="panel">
+      <p class="kicker">Филиалы</p>
+      <h2>Клиент выбирает точку, а заказ формируется под нужный филиал.</h2>
+      <div id="branchTabs" class="tabs"></div>
+    </section>
+
+    <section id="menu">
+      <p class="kicker">Меню</p>
+      <h2>Тестовое меню</h2>
+      <div id="categoryTabs" class="tabs"></div>
+      <div id="menuGrid" class="grid"></div>
+    </section>
+
+    <section id="bonus" class="bonus">
+      <div><p class="kicker">Cosmo Bonus</p><h2>5% бонусами, 7-й кофе в подарок, промокоды для Instagram.</h2></div>
+      <div class="promo"><b>COSMO10</b><span>-10% на первый заказ</span></div>
+      <div class="promo"><b>FRIENDS15</b><span>-15% от 2 напитков</span></div>
+    </section>
+
+    <section id="bot" class="panel bot">
+      <div><p class="kicker">Telegram bot</p><h2>Бот показывает меню, филиалы, бонусы и собирает заявку.</h2><p>Код бота лежит в папке <b>bot</b>.</p></div>
+      <div class="phone"><b>Cosmo Bot</b><p>☕ Меню</p><p>📍 Филиалы</p><p>🎁 Бонусы</p><p>🧾 Оформить заказ</p></div>
+    </section>
+  </main>
+
+  <aside id="cart" class="cart">
+    <div class="cartBox">
+      <button id="closeCart">×</button>
+      <h2>Корзина</h2>
+      <select id="orderBranch"></select>
+      <div id="cartItems"></div>
+      <input id="promoInput" placeholder="Промокод COSMO10">
+      <b id="cartTotal">0 сом</b>
+      <button id="copyOrder" class="btn">Показать текст заказа</button>
+      <pre id="status" class="small"></pre>
+    </div>
+  </aside>
+
+  <footer>Demo MVP • Cosmo Social Coffee</footer>
+  <script src="app.js"></script>
+</body>
+</html>
